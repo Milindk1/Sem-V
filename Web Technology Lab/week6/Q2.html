@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Browser Window</title>
+</head>
+<body>
+    <h1>Create a New Browser Window</h1>
+    <button onclick="openNewWindow()">Open New Window</button>
+
+    <script>
+        function openNewWindow() {
+            // Define the text you want to display in the new window
+            const textToDisplay = "Hello, this is a new browser window!";
+
+            // Open a new browser window with the specified text
+            const newWindow = window.open('', '', 'width=400,height=200');
+            
+            // Check if the new window was successfully opened
+            if (newWindow) {
+                // Write the text to the new window
+                newWindow.document.write(`<p>${textToDisplay}</p>`);
+            } else {
+                alert("The new window was blocked by the browser's pop-up blocker. Please allow pop-ups for this site.");
+            }
+        }
+    </script>
+</body>
+</html>
