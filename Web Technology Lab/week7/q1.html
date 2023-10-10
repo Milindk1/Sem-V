@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome Page with Cookies</title>
+</head>
+<body>
+    <h1>Welcome to our website!</h1>
+
+    <div id="welcome-message"></div>
+
+    <script>
+        // Function to set a cookie with the given name and value
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        // Function to get the value of a cookie by its name
+        function getCookie(name) {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    return cookie.substring(name.length + 1);
+                }
+            }
+            return "";
+        }
+
+        // Check if the user's name is already stored in a cookie
+        const userName = getCookie("username");
+
+        if (userName === "") {
+            // If the user's name is not stored, prompt for it and set the cookie
+            const name = prompt("Please enter your name:");
+            if (name !== null && name !== "") {
+                setCookie("username", name, 30); // Store the name for 30 days
+                document.getElementById("welcome-message").innerHTML = "Welcome, " + name + "!";
+            } else {
+                document.getElementById("welcome-message").innerHTML = "Welcome!";
+            }
+        } else {
+            // If the user's name is stored, display the welcome message
+            document.getElementById("welcome-message").innerHTML = "Welcome back, " + userName + "!";
+        }
+    </script>
+</body>
+</html>
