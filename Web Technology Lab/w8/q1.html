@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Best JOBs Wizard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .step {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Best JOBs Wizard</h1>
+    <div id="step1" class="step">
+        <h2>Step 1: Personal Information</h2>
+        <input type="text" id="firstName" placeholder="First Name">
+        <input type="text" id="lastName" placeholder="Last Name">
+        <button onclick="nextStep(1)">Next</button>
+    </div>
+    <div id="step2" class="step">
+        <h2>Step 2: Contact Information</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="tel" id="phone" placeholder="Phone">
+        <button onclick="prevStep(1)">Previous</button>
+        <button onclick="nextStep(2)">Next</button>
+    </div>
+    <div id="step3" class="step">
+        <h2>Step 3: Resume Upload</h2>
+        <input type="file" id="resume" accept=".pdf,.doc,.docx">
+        <button onclick="prevStep(2)">Previous</button>
+        <button onclick="submitForm()">Submit</button>
+    </div>
+
+    <script>
+        let currentStep = 1;
+
+        function showStep(stepNumber) {
+            const steps = document.querySelectorAll('.step');
+            steps.forEach((step, index) => {
+                step.style.display = index + 1 === stepNumber ? 'block' : 'none';
+            });
+        }
+
+        function nextStep(step) {
+            if (step === currentStep) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep(step) {
+            if (step === currentStep) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function submitForm() {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const resume = document.getElementById('resume').value;
+
+            // You can perform actions like form validation and submission here
+
+            // For this example, just display the collected data in an alert
+            alert(`Thank you for submitting your details!\n
+First Name: ${firstName}\n
+Last Name: ${lastName}\n
+Email: ${email}\n
+Phone: ${phone}\n
+Resume: ${resume}`);
+        }
+
+        showStep(currentStep);
+    </script>
+</body>
+</html>
