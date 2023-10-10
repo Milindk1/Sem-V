@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mouse Coordinates on Canvas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        canvas {
+            border: 1px solid #000;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mouse Coordinates on Canvas</h1>
+    <canvas id="canvas" width="400" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Function to get mouse coordinates
+        function getMousePos(canvas, event) {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            return { x, y };
+        }
+
+        // Function to update the coordinates on the canvas
+        function updateCoordinates(event) {
+            const mousePos = getMousePos(canvas, event);
+            const { x, y } = mousePos;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillText(`X: ${x}, Y: ${y}`, x, y);
+        }
+
+        // Add a mousemove event listener to the canvas
+        canvas.addEventListener('mousemove', updateCoordinates);
+    </script>
+</body>
+</html>
