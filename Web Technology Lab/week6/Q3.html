@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guess the Number</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #game-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        input[type="number"] {
+            width: 50px;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Guess the Number Game</h1>
+        <p>Guess a number between 1 and 10:</p>
+        <input type="number" id="guess" min="1" max="100">
+        <button onclick="checkGuess()">Guess</button>
+        <p>You have <span id="tries">5</span> tries remaining.</p>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        // Generate a random number between 1 and 100
+        const randomNumber = Math.floor(Math.random() * 10) + 1;
+
+        // Initialize the number of tries
+        let tries = 5;
+
+        function checkGuess() {
+            const userGuess = parseInt(document.getElementById('guess').value);
+            const resultElement = document.getElementById('result');
+            const triesElement = document.getElementById('tries');
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                resultElement.textContent = 'Please enter a valid number between 1 and 100.';
+            } else {
+                if (userGuess === randomNumber) {
+                    resultElement.textContent = 'Congratulations! You guessed the correct number.';
+                    resultElement.style.color = 'green';
+                    document.getElementById('guess').disabled = true;
+                    document.querySelector('button').disabled = true;
+                } else {
+                    tries--;
+                    if (tries === 0) {
+                        resultElement.textContent = `Sorry, you're out of tries. The correct number was ${randomNumber}.`;
+                        resultElement.style.color = 'red';
+                        document.getElementById('guess').disabled = true;
+                        document.querySelector('button').disabled = true;
+                    } else {
+                        resultElement.textContent = `Wrong guess. ${tries} ${tries === 1 ? 'try' : 'tries'} remaining.`;
+                        resultElement.style.color = 'red';
+                    }
+                }
+            }
+
+            // Update the number of tries displayed
+            triesElement.textContent = tries;
+        }
+    </script>
+</body>
+</html>
